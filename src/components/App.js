@@ -19,12 +19,27 @@ function App() {
   }
 
   const handleDelete = (questionToDelete) => {
-    const updatedQuestions = allQuestions.filter(q => q.id !== questionToDelete.id);
-    setAllQuestions(updatedQuestions);
     fetch(`http://localhost:4000/questions/${questionToDelete.id}`, {method: "DELETE"})
     .then(r => r.json())
-    .then(() => console.log(questionToDelete));
+    .then(() => {
+      console.log(questionToDelete)
+      const updatedQuestions = allQuestions.filter(q => q.id !== questionToDelete.id);
+      setAllQuestions(updatedQuestions);
+    }
+    );
   }
+
+  // function handleDeleteClick(id) {
+  //   fetch(`http://localhost:4000/questions/${id}`, {
+  //     method: "DELETE",
+  //   })
+  //     .then((r) => r.json())
+  //     .then(() => {
+  //       const updatedQuestions = questions.filter((q) => q.id !== id);
+  //       setQuestions(updatedQuestions);
+  //     });
+  // }
+
 
   const handleChangeAnswer = (question, newAnswerIndex) => {
     // console.log(question, newAnswerIndex);
